@@ -3,23 +3,27 @@ import pandas as pd
 import pymysql
 import boto3
 
-# Usar variables de entorno con valores por defecto
+# 1) Conexión a MySQL (lee de variables de entorno)
 conn = pymysql.connect(
-    host=os.environ.get('MYSQL_HOST', 'localhost'),
-    port=int(os.environ.get('MYSQL_PORT', 3306)),
-    user=os.environ.get('MYSQL_USER', 'root'),
-    password=os.environ.get('MYSQL_PASSWORD', 'utec'),
-    database=os.environ.get('MYSQL_DATABASE', 'empresa')
+    host     = os.environ.get('MYSQL_HOST', 'localhost'),
+    port     = int(os.environ.get('MYSQL_PORT', 3306)),
+    user     = os.environ.get('MYSQL_USER', 'root'),
+    password = os.environ.get('MYSQL_PASSWORD', ''),
+    database = os.environ.get('MYSQL_DATABASE', '')
 )
 
-df = pd.read_sql("SELECT * FROM empleados", conn)
+# 2) Leer todos los registros de la tabla
+table = os.environ.get('MYSQL_TABLE', '')
+df = pd.read_sql(f"SELECT * FROM {table};", conn)
 conn.close()
 
-csv_file = "data.csv"
-df.to_csv(csv_file, index=False)
+# 3) Volcar a CSV
+output_file = os.environ.get('OUTPUT_FILE', 'data.csv')
+df.to_csv(output_file, index=False, encoding='utf-8')
 
+# 4) Subir a S3
 s3 = boto3.client('s3')
-bucket = os.environ.get('S3_BUCKET', 's6-ingesta02')
-s3.upload_file(csv_file, bucket, csv_file)
+bucket = os.environ.get('S3_BUCKET')
+s3.upload_file(output_file, bucket, output_file)
 
-print("Ingesta completada")
+print(f"Ingesta completada: `{output_file}` subido a s3://{bucket}/")
