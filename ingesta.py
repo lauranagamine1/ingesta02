@@ -5,7 +5,7 @@ import boto3
 
 # Conexión a MySQL
 conn = pymysql.connect(
-    host='172.18.0.2',     # o la IP interna si es un contenedor
+    host='mysql-simulada',     # o la IP interna si es un contenedor
     port=3306,
     user='root',
     password='utec',
@@ -21,12 +21,7 @@ csv_file = "data.csv"
 df.to_csv(csv_file, index=False)
 
 # Subir a S3
-s3 = boto3.client(
-    's3',
-    aws_access_key_id='TU_ACCESS_KEY',
-    aws_secret_access_key='TU_SECRET_KEY',
-    region_name='us-east-1'
-)
+s3 = boto3.client('s3')
 
 bucket = 's6-ingesta02'
 s3.upload_file(csv_file, bucket, csv_file)
