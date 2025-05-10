@@ -3,7 +3,7 @@ import pymysql
 import boto3
 
 conn = pymysql.connect(
-    host='host.docker.internal', 
+    host='mysql_datos', 
     port=3307,
     user='root',
     password='utec',
