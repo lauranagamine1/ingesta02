@@ -1,6 +1,7 @@
 import pandas as pd
 import pymysql
 import boto3
+import os
 
 conn = pymysql.connect(
     host=os.environ['MYSQL_HOST'],
