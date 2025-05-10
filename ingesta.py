@@ -1,14 +1,13 @@
 import pandas as pd
 import pymysql
 import boto3
-import os
 
 conn = pymysql.connect(
-    host=os.environ['MYSQL_HOST'],
-    port=int(os.environ.get('MYSQL_PORT', 3306)),
-    user=os.environ['MYSQL_USER'],
-    password=os.environ['MYSQL_PASSWORD'],
-    database=os.environ['MYSQL_DATABASE']
+    host='host.docker.internal', 
+    port=3307,
+    user='root',
+    password='utec',
+    database='empresa'
 )
 
 df = pd.read_sql("SELECT * FROM empleados", conn)
