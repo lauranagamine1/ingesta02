@@ -5,7 +5,7 @@ import boto3
 
 # Conexión a MySQL
 conn = pymysql.connect(
-    host='mysql_datos',     # o la IP interna si es un contenedor
+    host='172.18.0.2',     # o la IP interna si es un contenedor
     port=3306,
     user='root',
     password='utec',
