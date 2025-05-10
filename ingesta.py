@@ -6,7 +6,7 @@ conn = pymysql.connect(
     host='host.docker.internal', 
     port=3307,
     user='root',
-    password='1234',
+    password='utec',
     database='empresa'
 )
 
