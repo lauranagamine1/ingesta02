@@ -5,10 +5,10 @@ import pymysql
 nombreBucket = "s6-ingesta02"
 
 conn = pymysql.connect(
-    host='host.docker.internal', 
-    port=3307,
+    host='mysql_datos', 
+    port=3306,
     user='root',
-    password='1234',
+    password='utec',
     database='empleados'
 )
 
