@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowS3PutObjectOnIngesta02",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl"
+        ],
+        "Resource": "arn:aws:s3:::s6-ingesta02/*"
+      }
+    ]
+  }
+  
